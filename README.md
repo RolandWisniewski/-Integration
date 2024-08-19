@@ -108,7 +108,7 @@ def sum_area(cords, step=1):
 
 # Trapezoidal Method
 
-Identical to the square method, with the difference that in this case we are dealing with rectangles:
+Identical to the square method, with the difference that in this case we are dealing with trapezoids:
 
 ```python
 def get_trapez(xs, ys, step=1):
@@ -132,4 +132,23 @@ def sum_area_trapez(cords, step=1):
                 (abs(cords[i][1]) - abs(cords[i][0]))) / 2
         sum_area += area
     return sum_area
+```
+
+# Time comparison
+
+Now it's time to compare the methods in terms of execution time.
+
+Below is the time measuring function:
+
+```python
+def time_measure(get_coo_fun, sum_area_fun, step=1):
+    start = time.process_time()
+
+    x_list, y_list = get_points_list(func=integrand, step=step, **params)
+    cords = get_coo_fun(x_list, y_list, step=step)
+    result = sum_area_fun(cords, step=step)
+
+    end = time.process_time()
+    total = end - start
+    return result, total
 ```
