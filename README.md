@@ -2,14 +2,22 @@
 
 Comparison of different integration methods in Python
 
+# Description
+
+In mathematics, a [Riemann sum](https://en.wikipedia.org/wiki/Riemann_sum) is a certain kind of approximation of an integral by a finite sum. It is named after nineteenth century German mathematician Bernhard Riemann. One very common application is in numerical integration, i.e., approximating the area of functions or lines on a graph, where it is also known as the rectangle rule. It can also be applied for approximating the length of curves and other approximations.
+
+The sum is calculated by partitioning the region into shapes (rectangles, trapezoids, parabolas, or cubics - sometimes infinitesimally small) that together form a region that is similar to the region being measured, then calculating the area for each of these shapes, and finally adding all of these small areas together. This approach can be used to find a numerical approximation for a definite integral even if the fundamental theorem of calculus does not make it easy to find a closed-form solution.
+
+Because the region by the small shapes is usually not exactly the same shape as the region being measured, the Riemann sum will differ from the area being measured. This error can be reduced by dividing up the region more finely, using smaller and smaller shapes. As the shapes get smaller and smaller, the sum approaches the Riemann integral.
+
 # Getting Started
 
 Libraries used:
-* [numpy](https://numpy.org/)
-* [time](https://docs.python.org/3/library/time.html)
-* [pyplot](https://matplotlib.org/stable/tutorials/pyplot.html) from [matplotlib](https://matplotlib.org/)
-* [tabulate](https://pypi.org/project/tabulate/)
-* `quad` form [scipy.integrate](https://docs.scipy.org/doc/scipy/tutorial/integrate.html)
+- [numpy](https://numpy.org/)
+- [time](https://docs.python.org/3/library/time.html)
+- [pyplot](https://matplotlib.org/stable/tutorials/pyplot.html) from [matplotlib](https://matplotlib.org/)
+- [tabulate](https://pypi.org/project/tabulate/)
+- `quad` form [scipy.integrate](https://docs.scipy.org/doc/scipy/tutorial/integrate.html)
 
 # Executing program
 
@@ -66,11 +74,11 @@ This method is relatively fast and the result is sufficiently accurate.
 
 However, we will create our own functions and calculate integrals using the `square method` and the `trapezoidal method`, and we will also compare the accuracies and times of these methods.
 
+
 # Square Method
 
-In calculus, the trapezoidal rule is a technique for numerical integration, i.e., approximating the definite integral.
-
-The Completing the square method is one way to solve a quadratic equation. It requires a few more steps than some of the other methods (like the quadratic formula), but it forms a foundation for an integration method of the same name.
+In calculus, the square method is a technique for numerical integration, i.e., approximating the definite integral.
+The square method works by approximating the region under the graph of the function as a square and calculating its area.
 
 You need to divide math functions into rectangles.
 
