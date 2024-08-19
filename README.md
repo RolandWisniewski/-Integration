@@ -63,3 +63,69 @@ Output:
 `{'time': 0.005239291999998841, 'result': 501670170391.79364}`
 
 This method is relatively fast and the result is sufficiently accurate.
+
+However, we will create our own functions and calculate integrals using the `square method` and the `trapezoidal method`, and we will also compare the accuracies and times of these methods.
+
+# Square Method
+
+In calculus, the trapezoidal rule is a technique for numerical integration, i.e., approximating the definite integral.
+
+The Completing the square method is one way to solve a quadratic equation. It requires a few more steps than some of the other methods (like the quadratic formula), but it forms a foundation for an integration method of the same name.
+
+You need to divide math functions into rectangles.
+
+The following function creates the coordinates of these rectangles:
+
+```python
+def get_squares(xs, ys, step=1):
+    coo = []
+    for x, y in zip(xs, ys):
+        x1 = x - step / 2
+        x2 = x + step / 2
+        y1 = y
+        # y2 will be always 0, witch is why I didn't include it
+        coo.append([x1, x2, y1])
+    coo[0][0] += step / 2 # substracting half of step from the first 
+    coo[-1][1] -= step / 2 # and last x because those are out of range
+    return coo
+```
+
+
+```python
+def sum_area(cords, step=1):
+    """This function sums the areas of all rectangles"""
+    sum_area = 0
+    for coo in cords:
+        area = (abs(coo[1]) - abs(coo[0])) * abs(coo[2])
+        sum_area += area
+    return sum_area
+```
+
+# Trapezoidal Method
+
+In calculus, the trapezoidal rule is a technique for numerical integration, i.e., approximating the definite integral.
+The trapezoidal rule works by approximating the region under the graph of the function as a trapezoid and calculating its area.
+
+```python
+def get_trapez(xs, ys, step=1):
+    coo = []
+    for x, y in zip(xs, ys):
+        x1 = x - step / 2
+        x2 = x + step / 2
+        y1 = y
+        coo.append([x1, x2, y1])
+    coo[0][0] += step / 2
+    coo[-1][1] -= step / 2
+    return coo
+```
+
+```python
+def sum_area_trapez(cords, step=1):
+    """This function sums the areas of all trapezes"""
+    sum_area = 0
+    for i in range(len(cords)-1):
+        area = ((abs(cords[i][2])+abs(cords[i+1][2])) * 
+                (abs(cords[i][1]) - abs(cords[i][0]))) / 2
+        sum_area += area
+    return sum_area
+```
