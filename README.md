@@ -77,12 +77,9 @@ However, we will create our own functions and calculate integrals using the `squ
 
 # Square Method
 
-In calculus, the square method is a technique for numerical integration, i.e., approximating the definite integral.
-The square method works by approximating the region under the graph of the function as a square and calculating its area.
+The square method works by approximating the region under the graph of the function as rectangles and calculating their area.
 
-You need to divide math functions into rectangles.
-
-The following function creates the coordinates of these rectangles:
+The following functions creates the coordinates of these rectangles:
 
 ```python
 def get_squares(xs, ys, step=1):
@@ -111,8 +108,7 @@ def sum_area(cords, step=1):
 
 # Trapezoidal Method
 
-In calculus, the trapezoidal rule is a technique for numerical integration, i.e., approximating the definite integral.
-The trapezoidal rule works by approximating the region under the graph of the function as a trapezoid and calculating its area.
+Identical to the square method, with the difference that in this case we are dealing with rectangles:
 
 ```python
 def get_trapez(xs, ys, step=1):
