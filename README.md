@@ -289,5 +289,74 @@ Output:
 
 # Results for the Trapezoidal Method
 
-...
+```python
+STEP = 1
+results_trapez = []
+result_time_trapez = []
+step_list_trapez = []
 
+for i in range(1, 14):
+    step_list_trapez.append(STEP)
+    res, tim = time_measure(get_trapez, sum_area_trapez, step=STEP)
+    results_trapez.append(res)
+    result_time_trapez.append(tim)
+    STEP *= 0.5
+```
+
+# Create a plot that compares step and time
+
+```python
+fig, ax = plt.subplots()
+
+fig = plt.plot(result_time_trapez)
+
+labels = [item.get_text() for item in ax.get_xticklabels()]
+
+labels[::] = [round(step_list_trapez[i], 4) for i,
+              v in enumerate(step_list_trapez)]
+
+ax.set_xticklabels(labels)
+
+plt.xlabel("Step")
+plt.ylabel("Time [s]")
+plt.grid(True)
+plt.show()
+```
+
+Output:
+
+![image](https://github.com/user-attachments/assets/415e265f-01ee-42f7-aa36-e5458cd23496)
+
+
+# Results entering in the table
+
+```python
+comparison_t = {
+    "time": [tim for tim in result_time_trapez],
+    "result": [res for res in results_trapez],
+    "step": [step for step in step_list_trapez]
+}
+
+print(tabulate(comparison_t, headers='keys',
+               disable_numparse=True, showindex=True))
+```
+
+Output:
+
+```
+    time                  result              step
+--  --------------------  ------------------  --------------
+0   0.017274687999986327  501670671495.2609   1
+1   0.016082500999999638  501670295874.8491   0.5
+2   0.03345482000000288   501670201969.7989   0.25
+3   0.06489974600000892   501670178493.6401   0.125
+4   0.12876187199998412   501670172624.6601   0.0625
+5   0.25719226100000014   501670171157.44666  0.03125
+6   0.5484355190000088    501670170790.65656  0.015625
+7   1.041992456999992     501670170698.97266  0.0078125
+8   2.100061573000005     501670170676.0516   0.00390625
+9   6.040882949999997     501670170670.32336  0.001953125
+10  10.377945259          501670170668.8924   0.0009765625
+11  20.778565375          501670170668.51306  0.00048828125
+12  41.888402670999994    501670170668.45123  0.000244140625
+```
