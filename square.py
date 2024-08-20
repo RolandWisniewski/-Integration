@@ -52,17 +52,6 @@ def sum_area(cords, step=1):
         sum_area += area
     return sum_area
 
-def get_trapez(xs, ys, step=1):
-    coo = []
-    for x, y in zip(xs, ys):
-        x1 = x - step / 2
-        x2 = x + step / 2
-        y1 = y
-        coo.append([x1, x2, y1])
-    coo[0][0] += step / 2
-    coo[-1][1] -= step / 2
-    return coo
-
 def time_measure(get_coo_fun, sum_area_fun, step=1):
     start = time.process_time()
 
