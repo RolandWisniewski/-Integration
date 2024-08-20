@@ -89,12 +89,12 @@ Output:
 
 This method is relatively fast and the result is sufficiently accurate.
 
-However, we will create our own functions and calculate integrals using the `square method` and the `trapezoidal method`, and we will also compare the accuracies and times of these methods.
+However, we will create our own functions and calculate integrals using the `Square Method` and the `Trapezoidal Method`, and we will also compare the accuracies and times of these methods.
 
 
 # Square Method
 
-The square method works by approximating the area under the graph of the function as rectangles and calculating their area.
+The Square Method works by approximating the area under the graph of the function as rectangles and calculating their area.
 
 The following functions creates the coordinates of these rectangles:
 
@@ -289,6 +289,8 @@ Output:
 
 # Results for the Trapezoidal Method
 
+We proceed in the same way as in the case of the Square Method:
+
 ```python
 STEP = 1
 results_trapez = []
@@ -303,7 +305,7 @@ for i in range(1, 14):
     STEP *= 0.5
 ```
 
-# Create a plot that compares step and time
+Create a plot that compares step and time:
 
 ```python
 fig, ax = plt.subplots()
@@ -328,7 +330,7 @@ Output:
 ![image](https://github.com/user-attachments/assets/415e265f-01ee-42f7-aa36-e5458cd23496)
 
 
-# Results entering in the table
+Results entering in the table:
 
 ```python
 comparison_t = {
@@ -360,3 +362,103 @@ Output:
 11  20.778565375          501670170668.51306  0.00048828125
 12  41.888402670999994    501670170668.45123  0.000244140625
 ```
+
+A function that calculates the percentage differences between our function and the built-in function:
+
+```python
+proc_list_trapez = []
+for i, n in enumerate(comparison_t["result"]):
+    if i == 0:
+        continue
+    else:
+        proc = (abs((100 * n) / I[0]) - 100) * 1000
+        """ I increased the result 1000 times 
+            because the differences were very small """
+        proc_list_trapez.append(proc)
+```
+
+Creating a plot showing our results:
+
+```python
+fig, ax = plt.subplots()
+
+fig = plt.plot(proc_list_trapez) #, st_list)
+
+labels = [item.get_text() for item in ax.get_xticklabels()]
+
+labels[::] = [round(step_list_trapez[i], 4) for i,
+              v in enumerate(step_list_trapez)]
+
+ax.set_xticklabels(labels)
+
+plt.xlabel("Step")
+plt.ylabel("Procent")
+plt.grid(True)
+plt.show()
+```
+
+Output:
+
+![image](https://github.com/user-attachments/assets/f6910356-0615-4329-bde2-d5e88e265e7a)
+
+# Comparison of results between the Square Method and the Trapezoidal Method
+
+```python
+fig, ax = plt.subplots()
+
+plt.plot(proc_list_sq, color='r', label='square')
+plt.plot(proc_list_trapez, color='g', label='trapeze')
+
+labels = [item.get_text() for item in ax.get_xticklabels()]
+
+labels[::] = [round(step_list_trapez[i], 4) for i,
+              v in enumerate(step_list_trapez)]
+
+ax.set_xticklabels(labels)
+ax.set_yscale('log')
+
+plt.legend()
+plt.xlabel("Step")
+plt.ylabel("Precent")
+plt.grid(True)
+plt.show()
+```
+
+Output:
+
+![image](https://github.com/user-attachments/assets/23a70324-a9ee-4d41-ab39-bac5baf69232)
+
+# Comparison of times between the Square Method and the Trapezoidal Method
+
+```python
+fig, ax = plt.subplots()
+
+plt.plot(result_time_square, color='r', label='square')
+plt.plot(result_time_trapez, color='g', label='trapeze')
+
+labels = [item.get_text() for item in ax.get_xticklabels()]
+
+labels[::] = [round(step_list_trapez[i], 4) for i,
+              v in enumerate(step_list_trapez)]
+
+ax.set_xticklabels(labels)
+
+plt.legend()
+plt.xlabel("Step")
+plt.ylabel("Time [s]")
+plt.grid(True)
+plt.show()
+```
+
+Output:
+
+![image](https://github.com/user-attachments/assets/c4d621ea-3c01-47bd-8bd9-e73d58f879bc)
+
+
+# Conclusions
+
+...
+
+# Authors
+
+- [RolandWisniewski]
