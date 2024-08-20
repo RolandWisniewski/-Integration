@@ -401,7 +401,9 @@ Output:
 
 ![image](https://github.com/user-attachments/assets/f6910356-0615-4329-bde2-d5e88e265e7a)
 
-# Comparison of results between the Square Method and the Trapezoidal Method
+# Comparisons
+
+Comparison of results between the Square Method and the Trapezoidal Method:
 
 ```python
 fig, ax = plt.subplots()
@@ -428,7 +430,7 @@ Output:
 
 ![image](https://github.com/user-attachments/assets/23a70324-a9ee-4d41-ab39-bac5baf69232)
 
-# Comparison of times between the Square Method and the Trapezoidal Method
+Comparison of times between the Square Method and the Trapezoidal Method:
 
 ```python
 fig, ax = plt.subplots()
