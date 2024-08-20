@@ -458,7 +458,3 @@ Output:
 # Conclusions
 
 ...
-
-# Authors
-
-- [RolandWisniewski]
