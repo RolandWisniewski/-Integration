@@ -324,5 +324,8 @@ Comparison of times between the Square Method and the Trapezoidal Method:
 2. The Trapezoidal Method achieves better accuracy with a comparable execution time.
 3. For high precision, using built-in methods like `quad` is recommended due to their optimized algorithms.
 
+## 👤 Author
+* Created by [RolandWisniewski](https://github.com/RolandWisniewski)
+
 ## 📜 License
-This project is licensed under the MIT License. See the `LICENSE` file for details.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
