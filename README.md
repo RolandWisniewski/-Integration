@@ -107,11 +107,6 @@ Output:
 
 `{'time': 0.005239291999998841, 'result': 501670170391.79364}`
 
-This method is relatively fast and the result is sufficiently accurate.
-
-However, we will create our own functions and calculate integrals using the `Square Method` and the `Trapezoidal Method`, and we will also compare the accuracies and times of these methods.
-
-
 ### 2. Square Method
 
 The Square Method works by approximating the area under the graph of the function as rectangles and calculating their area.
@@ -193,67 +188,58 @@ def time_measure(get_coo_fun, sum_area_fun, step=1):
 
 ### Results:
 
-Results are tabulated using `tabulate` for better readability.
-
-Results for the Square Method
-
 ```python
 STEP = 1
-results_square = []
-result_time_square = []
-step_list_square = []
+results = []
+result_time = []
+step_list = []
 
 """ Loop that will run functions 13 times 
     (reduces the step by half each time) """
 for i in range(1, 14):
-    step_list_square.append(STEP)
-    res, tim = time_measure(get_squares, sum_area, step=STEP)
-    results_square.append(res)
-    result_time_square.append(tim)
+    step_list.append(STEP)
+    res, tim = time_measure(get, sum_area, step=STEP)
+    results.append(res)
+    result_time.append(tim)
     STEP *= 0.5
 ```
 
-Create a plot that compares step and time:
+Results are tabulated using `tabulate` for better readability.
 
 ```python
-from matplotlib import pyplot as plt
-
-fig, ax = plt.subplots()
-
-fig = plt.plot(result_time_square)
-
-labels = [item.get_text() for item in ax.get_xticklabels()]
-
-labels[::] = [round(step_list_square[i], 4) for i,
-              v in enumerate(step_list_square)]
-
-ax.set_xticklabels(labels)
-
-plt.xlabel("Step")
-plt.ylabel("Time [s]")
-plt.grid(True)
-plt.show()
-```
-Output:
-
-![image](https://github.com/user-attachments/assets/c0b8b4da-ef14-4f7e-8c52-13161de571e9)
-
-
-Results entering in the table:
-
-```python
-from tabulate import tabulate
-
-comparison_sq = {
+comparison = {
     "time": [tim for tim in result_time_square],
     "result": [res for res in results_square],
     "step": [step for step in step_list_square]
 }
 
-print(tabulate(comparison_sq, headers='keys', 
+print(tabulate(comparison, headers='keys', 
                disable_numparse=True, showindex=True))
 ```
-Output:
+
+Results are visualized using `matplotlib`.
+
+```python
+fig, ax = plt.subplots()
+fig = plt.plot(proc_list)
+
+labels = [item.get_text() for item in ax.get_xticklabels()]
+labels[::] = [round(step_list[i], 4) for i,
+              v in enumerate(step_list)]
+
+ax.set_xticklabels(labels)
+
+plt.xlabel("Step")
+plt.ylabel("Procent")
+plt.grid(True)
+plt.show()
+```
+
+## Results for the Square Method
+
+![image](https://github.com/user-attachments/assets/c0b8b4da-ef14-4f7e-8c52-13161de571e9)
+
+Results entering in the table:
 
 ```
     time                  result              step
@@ -276,99 +262,28 @@ Output:
 A function that calculates the percentage differences between our function and the built-in function:
 
 ```python
-proc_list_sq = []
-for i, n in enumerate(comparison_sq["result"]):
+proc_list = []
+for i, n in enumerate(comparison["result"]):
     if i == 0:
         continue
     else:
         proc = (abs((100 * n) / I[0]) - 100) * 1000
         """ I increased the result 1000 times 
             because the differences were very small """
-        proc_list_sq.append(proc)
+        proc_list.append(proc)
 ```
 
-Creating a plot showing our results:
-
-```python
-fig, ax = plt.subplots()
-
-fig = plt.plot(proc_list_sq)
-
-labels = [item.get_text() for item in ax.get_xticklabels()]
-
-labels[::] = [round(step_list_square[i], 4) for i,
-              v in enumerate(step_list_square)]
-
-ax.set_xticklabels(labels)
-
-plt.xlabel("Step")
-plt.ylabel("Precent")
-plt.grid(True)
-plt.show()
-```
-
-Output:
+Plot showing our results:
 
 ![image](https://github.com/user-attachments/assets/f3964915-ca8f-429a-a189-31e77dd631d5)
 
-
-# Results for the Trapezoidal Method
+## Results for the Trapezoidal Method
 
 We proceed in the same way as in the case of the Square Method:
 
-```python
-STEP = 1
-results_trapez = []
-result_time_trapez = []
-step_list_trapez = []
-
-for i in range(1, 14):
-    step_list_trapez.append(STEP)
-    res, tim = time_measure(get_trapez, sum_area_trapez, step=STEP)
-    results_trapez.append(res)
-    result_time_trapez.append(tim)
-    STEP *= 0.5
-```
-
-Create a plot that compares step and time:
-
-```python
-fig, ax = plt.subplots()
-
-fig = plt.plot(result_time_trapez)
-
-labels = [item.get_text() for item in ax.get_xticklabels()]
-
-labels[::] = [round(step_list_trapez[i], 4) for i,
-              v in enumerate(step_list_trapez)]
-
-ax.set_xticklabels(labels)
-
-plt.xlabel("Step")
-plt.ylabel("Time [s]")
-plt.grid(True)
-plt.show()
-```
-
-Output:
-
 ![image](https://github.com/user-attachments/assets/415e265f-01ee-42f7-aa36-e5458cd23496)
 
-
 Results entering in the table:
-
-```python
-comparison_t = {
-    "time": [tim for tim in result_time_trapez],
-    "result": [res for res in results_trapez],
-    "step": [step for step in step_list_trapez]
-}
-
-print(tabulate(comparison_t, headers='keys',
-               disable_numparse=True, showindex=True))
-```
-
-Output:
 
 ```
     time                  result              step
@@ -388,96 +303,17 @@ Output:
 12  41.888402670999994    501670170668.45123  0.000244140625
 ```
 
-A function that calculates the percentage differences between our function and the built-in function:
-
-```python
-proc_list_trapez = []
-for i, n in enumerate(comparison_t["result"]):
-    if i == 0:
-        continue
-    else:
-        proc = (abs((100 * n) / I[0]) - 100) * 1000
-        """ I increased the result 1000 times 
-            because the differences were very small """
-        proc_list_trapez.append(proc)
-```
-
-Creating a plot showing our results:
-
-```python
-fig, ax = plt.subplots()
-
-fig = plt.plot(proc_list_trapez) #, st_list)
-
-labels = [item.get_text() for item in ax.get_xticklabels()]
-
-labels[::] = [round(step_list_trapez[i], 4) for i,
-              v in enumerate(step_list_trapez)]
-
-ax.set_xticklabels(labels)
-
-plt.xlabel("Step")
-plt.ylabel("Procent")
-plt.grid(True)
-plt.show()
-```
-
-Output:
+Plot showing percentage differences between our function and the built-in function:
 
 ![image](https://github.com/user-attachments/assets/f6910356-0615-4329-bde2-d5e88e265e7a)
 
-# Comparisons
+## 📊 Comparisons
 
 Comparison of results between the Square Method and the Trapezoidal Method:
-
-```python
-fig, ax = plt.subplots()
-
-plt.plot(proc_list_sq, color='r', label='square')
-plt.plot(proc_list_trapez, color='g', label='trapeze')
-
-labels = [item.get_text() for item in ax.get_xticklabels()]
-
-labels[::] = [round(step_list_trapez[i], 4) for i,
-              v in enumerate(step_list_trapez)]
-
-ax.set_xticklabels(labels)
-ax.set_yscale('log')
-
-plt.legend()
-plt.xlabel("Step")
-plt.ylabel("Precent")
-plt.grid(True)
-plt.show()
-```
-
-Output:
 
 ![image](https://github.com/user-attachments/assets/23a70324-a9ee-4d41-ab39-bac5baf69232)
 
 Comparison of times between the Square Method and the Trapezoidal Method:
-
-```python
-fig, ax = plt.subplots()
-
-plt.plot(result_time_square, color='r', label='square')
-plt.plot(result_time_trapez, color='g', label='trapeze')
-
-labels = [item.get_text() for item in ax.get_xticklabels()]
-
-labels[::] = [round(step_list_trapez[i], 4) for i,
-              v in enumerate(step_list_trapez)]
-
-ax.set_xticklabels(labels)
-
-plt.legend()
-plt.xlabel("Step")
-plt.ylabel("Time [s]")
-plt.grid(True)
-plt.show()
-```
-
-Output:
 
 ![image](https://github.com/user-attachments/assets/c4d621ea-3c01-47bd-8bd9-e73d58f879bc)
 
