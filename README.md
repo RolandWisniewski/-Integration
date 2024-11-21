@@ -2,15 +2,21 @@
 
 Comparison of different integration methods in Python
 
-# Description
+## 📖 Description
 
-In mathematics, a [Riemann sum](https://en.wikipedia.org/wiki/Riemann_sum) is a certain kind of approximation of an integral by a finite sum. It is named after nineteenth century German mathematician Bernhard Riemann. One very common application is in numerical integration, i.e., approximating the area of functions or lines on a graph, where it is also known as the rectangle rule. It can also be applied for approximating the length of curves and other approximations.
+In mathematics, a [Riemann sum](https://en.wikipedia.org/wiki/Riemann_sum) approximates the integral of a function by partitioning the region into finite shapes (e.g., rectangles, trapezoids). This approach is widely used in numerical integration when exact solutions to definite integrals are challenging to compute analytically.
 
-The sum is calculated by partitioning the region into shapes (rectangles, trapezoids, parabolas, or cubics - sometimes infinitesimally small) that together form a region that is similar to the region being measured, then calculating the area for each of these shapes, and finally adding all of these small areas together. This approach can be used to find a numerical approximation for a definite integral even if the fundamental theorem of calculus does not make it easy to find a closed-form solution.
+This project compares different methods of numerical integration:
 
-Because the region by the small shapes is usually not exactly the same shape as the region being measured, the Riemann sum will differ from the area being measured. This error can be reduced by dividing up the region more finely, using smaller and smaller shapes. As the shapes get smaller and smaller, the sum approaches the Riemann integral.
+* **Square Method:** Approximating areas using rectangles.
+* **Trapezoidal Method:** Approximating areas using trapezoids.
+* **Built-in Method:** Using Python's `quad` function from [scipy.integrate](https://docs.scipy.org/doc/scipy/tutorial/integrate.html).
 
-# Getting Started
+The comparison focuses on:
+1. Accuracy of the results.
+2. Execution time.
+
+## 🚀 Getting Started
 
 Libraries used:
 - [numpy](https://numpy.org/)
@@ -19,16 +25,26 @@ Libraries used:
 - [tabulate](https://pypi.org/project/tabulate/)
 - `quad` form [scipy.integrate](https://docs.scipy.org/doc/scipy/tutorial/integrate.html)
 
-# Executing program
+Install required libraries via `pip`:
 
-First you need to import the libraries you need at this point:
+```bash
+pip install numpy matplotlib tabulate scipy
+```
+
+## 🔧 Executing program
+
+### 1. Import Required Libraries
+Start by importing the necessary libraries:
 
 ```python
 import numpy as np
 import time
+from matplotlib import pyplot as plt
+from scipy.integrate import quad
 ```
 
-Then you need a few variables. You can enter any keys and values:
+### 2. Define Input Parameters
+Set up the parameters for the mathematical function to be integrated:
 
 ```python
 params = {
@@ -40,7 +56,8 @@ params = {
 }
 ```
 
-You also need a function that will create a mathematical operation depending on the previous values ​​​​added to 'params' dict:
+### 3. Define the Integrand Function
+This function constructs the mathematical operation based on the parameters:
 
 ```python
 def integrand(x, **kwargs):
@@ -50,7 +67,8 @@ def integrand(x, **kwargs):
     return y
 ```
 
-And a function that will automatically create two lists with points x and y:
+### 4. Generate Points for Approximation
+Use the following function to create points for `x` and corresponding values for `y`:
 
 ```python
 def get_points_list(func, start=0, stop=1000, step=1, **kwargs):
@@ -67,11 +85,13 @@ def get_points_list(func, start=0, stop=1000, step=1, **kwargs):
     return x2, y2
 ``` 
 
-To integrate in Python, you could use ready-made functions such as `quad` from the [scipy.integrate](https://docs.scipy.org/doc/scipy/tutorial/integrate.html) sub-package:
+## 🧮 Integration Methods
+
+### 1. Built-in Method (`quad`)
+
+Using the `quad` function from [scipy.integrate](https://docs.scipy.org/doc/scipy/tutorial/integrate.html) for numerical integration:
 
 ```python
-from scipy.integrate import quad
-
 start = time.process_time()
 I = quad(integrand, 0, 1000)
 end = time.process_time()
@@ -92,7 +112,7 @@ This method is relatively fast and the result is sufficiently accurate.
 However, we will create our own functions and calculate integrals using the `Square Method` and the `Trapezoidal Method`, and we will also compare the accuracies and times of these methods.
 
 
-# Square Method
+### 2. Square Method
 
 The Square Method works by approximating the area under the graph of the function as rectangles and calculating their area.
 
@@ -112,6 +132,7 @@ def get_squares(xs, ys, step=1):
     return coo
 ```
 
+Calculate Area:
 
 ```python
 def sum_area(cords, step=1):
@@ -123,7 +144,7 @@ def sum_area(cords, step=1):
     return sum_area
 ```
 
-# Trapezoidal Method
+### 3. Trapezoidal Method
 
 Identical to the square method, with the difference that in this case we are dealing with trapezoids:
 
@@ -140,6 +161,8 @@ def get_trapez(xs, ys, step=1):
     return coo
 ```
 
+Calculate Area:
+
 ```python
 def sum_area_trapez(cords, step=1):
     """This function sums the areas of all trapezes"""
@@ -151,11 +174,9 @@ def sum_area_trapez(cords, step=1):
     return sum_area
 ```
 
-# Time comparison
+## ⏳ Time comparison
 
-Now it's time to compare the methods in terms of execution time.
-
-Below is the time measuring function:
+### Measuring Execution Time:
 
 ```python
 def time_measure(get_coo_fun, sum_area_fun, step=1):
@@ -170,7 +191,11 @@ def time_measure(get_coo_fun, sum_area_fun, step=1):
     return result, total
 ```
 
-# Results for the Square Method
+### Results:
+
+Results are tabulated using `tabulate` for better readability.
+
+Results for the Square Method
 
 ```python
 STEP = 1
@@ -457,6 +482,11 @@ Output:
 ![image](https://github.com/user-attachments/assets/c4d621ea-3c01-47bd-8bd9-e73d58f879bc)
 
 
-# Conclusions
+## 🧪 Conclusions
 
-...
+1. The Square Method is simpler but less accurate for smaller step sizes compared to the Trapezoidal Method.
+2. The Trapezoidal Method achieves better accuracy with a comparable execution time.
+3. For high precision, using built-in methods like `quad` is recommended due to their optimized algorithms.
+
+## 📜 License
+This project is licensed under the MIT License. See the `LICENSE` file for details.
